@@ -1,0 +1,381 @@
+<!doctype html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+
+    <script type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="header-wrap">
+                <div class="hamburger-menu">
+                    <div class="hamburger-menu-wrap">
+                        <div class="hamburger-menu-line"></div>
+                        <div class="hamburger-menu-line"></div>
+                        <div class="hamburger-menu-line"></div>
+                    </div>
+                </div>
+                <div class="logo-wrap">
+                    <img class="">
+                </div>
+                <div class="shipments-process-container">
+                    <div class="shipments-process-wrap">
+                        <div class="shipments-process-info">
+                            <div class="shipments-process-info__title">Shipments Details</div>
+                            <div class="shipments-process-info__current">Shipping Documents</div>
+                        </div>
+                        <div class="shipments-process-bar" step="2">
+                            <div class="shipments-process-bar-point prev" step="0"></div>
+                            <div class="shipments-process-bar-point prev" step="1"></div>
+                            <div class="shipments-process-bar-point current" step="2"></div>
+                            <div class="shipments-process-bar-point next" step="3"></div>
+    
+                            <div class="shipments-process-bar-line"></div>
+                            <div class="shipments-process-bar-line active"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shipments-documents-container">
+                    <div class="shipments-document-wrap active">
+                        <div class="shipments-document-title">Invoice</div>
+                    </div>
+                    <div class="shipments-document-wrap">
+                        <div class="shipments-document-title">Packing</div>
+                    </div>
+                    <div class="shipments-document-wrap">
+                        <div class="shipments-document-title">Billl of Laden</div>
+                    </div>
+                    <div class="shipments-document-wrap add">
+                        <div class="shipments-document-wrap--add__line-v"></div>
+                        <div class="shipments-document-wrap--add__line-h"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="content-wrap">
+                <div class="content-main">
+                    <div class="document-preview-container">
+    
+                    </div>
+                </div>
+                <div class="content-sidebar">
+                    <div class="document-detail-sidebar-wrap">
+                        <div class="document-detail-sidebar-wrap-root-menu-content">
+                            <div class="btn-document-menu close">
+                                <span class="btn-document-menu-open">+</span>
+                                <span class="btn-document-menu-close">-</span>
+                            </div>
+                            <div class="document-detail-sidebar-wrap-menu-content-body">
+                                <div class="document-detail-sidebar-wrap-menu-link-group">
+                                    <div class="document-detail-sidebar-wrap-menu-link">Save as Template</div>
+                                    <div class="document-detail-sidebar-wrap-menu-link">Copy from Template</div>
+                                </div>
+                                <div class="document-detail-sidebar-wrap-menu-link-group">
+                                    <div class="document-detail-sidebar-wrap-menu-link">Collapse/Expand All</div>
+                                    <div class="document-detail-sidebar-wrap-menu-link">Collapse/Expand All</div>
+                                </div>
+                                <div class="document-detail-sidebar-wrap-menu-link-group">
+                                    <div class="document-detail-sidebar-wrap-menu-link">Remove Labels</div>
+                                    <div class="document-detail-sidebar-wrap-menu-link">Open in a New Window</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-sub-menu-content">
+                            <div class="btn-document-menu close">
+                                <span class="btn-document-menu-open">+</span>
+                                <span class="btn-document-menu-close">-</span>
+                            </div>
+                            <div class="document-detail-sidebar-wrap-menu-content-body">
+                                <div class="document-detail-sidebar-wrap-sub-menu-link">[Exporter Name] [Shipment Data] 01.05.2021</div>
+                                <div class="document-detail-sidebar-wrap-sub-menu-link">[Exporter Name] [Shipment Data] 01.05.2021</div>
+                                <div class="document-detail-sidebar-wrap-sub-menu-link">[Exporter Name] [Shipment Data] 01.05.2021</div>
+                                <div class="document-detail-sidebar-wrap-sub-menu-link">[Exporter Name] [Shipment Data] 01.05.2021</div>
+                                <div class="document-detail-sidebar-wrap-sub-menu-link">[Exporter Name] [Shipment Data] 01.05.2021</div>
+                                <div class="document-detail-sidebar-wrap-sub-menu-link">[Exporter Name] [Shipment Data] 01.05.2021</div>
+                                <div class="document-detail-sidebar-wrap-sub-menu-link">[Exporter Name] [Shipment Data] 01.05.2021</div>
+                                <div class="document-detail-sidebar-wrap-sub-menu-link">[Exporter Name] [Shipment Data] 01.05.2021</div>
+                            </div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-header">
+                            <div class="document-detail-favorite favorite1 btn-document-favorite">
+                                <i class="icon-heart-empty"></i>
+                                <i class="icon-heart"></i>
+                            </div>
+                            <div class="btn-document-more">
+                                <i class="icon-ellipsis-horizontal"></i>
+                            </div>
+                            <div class="btn-document-menu">
+                                <span class="btn-document-menu-open">+</span>
+                                <span class="btn-document-menu-close">-</span>
+                            </div>
+                            <div class="document-detail-title">Exporter</div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-body">
+                            <div class="document-detail-group">
+                                <div class="document-detail-group-header">
+                                    <div class="document-detail-info-row">
+                                        <div class="document-detail-info__title">ABC Furnitures, LTD</div>
+                                        <div class="document-detail-info__property">Manufacturer</div>
+                                    </div>
+                                </div>
+                                <div class="document-detail-group-body">
+                                    <div class="document-detail-info-row shipper">
+                                        <div class="document-detail-info__title">ABC Furnitures, LTD</div>
+                                        <div class="document-detail-info__property">Shipper</div>
+                                    </div>
+                                    <div class="document-detail-info-row street">
+                                        <div class="document-detail-info__title">123, Main Street</div>
+                                        <div class="document-detail-info__property">Street</div>
+                                    </div>
+                                    <div class="document-detail-info-row city">
+                                        <div class="document-detail-info__title">San Joseph</div>
+                                        <div class="document-detail-info__property">City</div>
+                                    </div>
+                                    <div class="document-detail-info-row state">
+                                        <div class="document-detail-info__title">CA</div>
+                                        <div class="document-detail-info__property">State</div>
+                                    </div>
+                                    <div class="document-detail-info-row zipcode">
+                                        <div class="document-detail-info__title">95123</div>
+                                        <div class="document-detail-info__property">Zipcode</div>
+                                    </div>
+                                    <div class="document-detail-info-row phone">
+                                        <div class="document-detail-info__title">+1 416 555 7865</div>
+                                        <div class="document-detail-info__property">Phone</div>
+                                    </div>
+                                    <div class="document-detail-info-row email">
+                                        <div class="document-detail-info__title">johndoe@abcfur.com</div>
+                                        <div class="document-detail-info__property">Email</div>
+                                    </div>
+                                    <div class="document-detail-info-row button">
+                                        <div class="btn-detail-info-plus">+</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="document-detail-group">
+                                <div class="document-detail-group-header">
+                                    <div class="document-detail-info-row">
+                                        <div class="document-detail-info__title">GHJ Furniture Maker</div>
+                                        <div class="document-detail-info__property">Seller</div>
+                                    </div>
+                                </div>
+                                <div class="document-detail-group-body padding">
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Add data</div>
+                                        <div class="document-detail-info__property">Container Stuffing</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Add data</div>
+                                        <div class="document-detail-info__property">Consolidator</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Add data</div>
+                                        <div class="document-detail-info__property">Consignor</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Add data</div>
+                                        <div class="document-detail-info__property">Exporter</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Add data</div>
+                                        <div class="document-detail-info__property">Vendor</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Add data</div>
+                                        <div class="document-detail-info__property">Vendor</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="document-detail-group">
+                                <div class="document-detail-group-header">
+                                    <div class="document-detail-info-row">
+                                        <div class="document-detail-info__title">United States of America</div>
+                                        <div class="document-detail-info__property">Country</div>
+                                    </div>
+                                </div>
+                                <div class="document-detail-group-body">
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">01.12.2021</div>
+                                        <div class="document-detail-info__property">Date of Export</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-footer">
+                            <div class="btn-document-detail-collapse">
+                                <i class="icon-chevron-up"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="document-detail-sidebar-wrap no-favorite no-footer no-body-group-header">
+                        <div class="document-detail-sidebar-wrap-header">
+                            <div class="document-detail-favorite favorite1 btn-document-favorite">
+                                <i class="icon-heart-empty"></i>
+                                <i class="icon-heart"></i>
+                            </div>
+                            <div class="btn-document-more">
+                                <i class="icon-ellipsis-horizontal"></i>
+                            </div>
+                            <div class="btn-document-menu">
+                                <span class="btn-document-menu-open">+</span>
+                                <span class="btn-document-menu-close">-</span>
+                            </div>
+                            <div class="document-detail-title">Importer</div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-body">
+                            <div class="document-detail-group">
+                                <div class="document-detail-group-header"></div>
+                                <div class="document-detail-group-body">
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Best Homelife</div>
+                                        <div class="document-detail-info__property">Importer</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">United States of America</div>
+                                        <div class="document-detail-info__property">Country</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">01.12.2021</div>
+                                        <div class="document-detail-info__property">Date of Export</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-footer">
+                            <div class="btn-document-detail-collapse">
+                                <i class="icon-chevron-up"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="document-detail-sidebar-wrap no-favorite no-footer no-body-group-header">
+                        <div class="document-detail-sidebar-wrap-header">
+                            <div class="document-detail-favorite favorite1 btn-document-favorite">
+                                <i class="icon-heart-empty"></i>
+                                <i class="icon-heart"></i>
+                            </div>
+                            <div class="btn-document-more">
+                                <i class="icon-ellipsis-horizontal"></i>
+                            </div>
+                            <div class="btn-document-menu">
+                                <span class="btn-document-menu-open">+</span>
+                                <span class="btn-document-menu-close">-</span>
+                            </div>
+                            <div class="document-detail-title">Invoice</div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-body">
+                            <div class="document-detail-group">
+                                <div class="document-detail-group-header"></div>
+                                <div class="document-detail-group-body">
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">PO 123456789</div>
+                                        <div class="document-detail-info__property">PO #</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">1234567890</div>
+                                        <div class="document-detail-info__property">Invoice #</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-footer">
+                            <div class="btn-document-detail-collapse">
+                                <i class="icon-chevron-up"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="document-detail-sidebar-wrap no-favorite no-footer no-body-group-header">
+                        <div class="document-detail-sidebar-wrap-header">
+                            <div class="document-detail-favorite favorite1 btn-document-favorite">
+                                <i class="icon-heart-empty"></i>
+                                <i class="icon-heart"></i>
+                            </div>
+                            <div class="btn-document-more">
+                                <i class="icon-ellipsis-horizontal"></i>
+                            </div>
+                            <div class="btn-document-menu">
+                                <span class="btn-document-menu-open">+</span>
+                                <span class="btn-document-menu-close">-</span>
+                            </div>
+                            <div class="document-detail-title">Items</div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-body">
+                            <div class="document-detail-group">
+                                <div class="document-detail-group-header"></div>
+                                <div class="document-detail-group-body">
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Bed stands with 6 legs</div>
+                                        <div class="document-detail-info__property">Item 1</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Bed headstand 4x8 lorum…</div>
+                                        <div class="document-detail-info__property">Item 2</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-footer">
+                            <div class="btn-document-detail-collapse">
+                                <i class="icon-chevron-up"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="document-detail-sidebar-wrap no-favorite no-footer no-body-group-header">
+                        <div class="document-detail-sidebar-wrap-header">
+                            <div class="document-detail-favorite favorite1 btn-document-favorite">
+                                <i class="icon-heart-empty"></i>
+                                <i class="icon-heart"></i>
+                            </div>
+                            <div class="btn-document-more">
+                                <i class="icon-ellipsis-horizontal"></i>
+                            </div>
+                            <div class="btn-document-menu">
+                                <span class="btn-document-menu-open">+</span>
+                                <span class="btn-document-menu-close">-</span>
+                            </div>
+                            <div class="document-detail-title">Transport</div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-body">
+                            <div class="document-detail-group">
+                                <div class="document-detail-group-header"></div>
+                                <div class="document-detail-group-body">
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Lorum ipsum</div>
+                                        <div class="document-detail-info__property">[Key Term]</div>
+                                    </div>
+                                    <div class="document-detail-info-row border">
+                                        <div class="document-detail-info__title">Lorum ipsum</div>
+                                        <div class="document-detail-info__property">[Key Term]</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="document-detail-sidebar-wrap-footer">
+                            <div class="btn-document-detail-collapse">
+                                <i class="icon-chevron-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
