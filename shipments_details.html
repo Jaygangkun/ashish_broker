@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/konva@7.0.7/konva.min.js"></script>
 
     <script type="text/javascript" src="js/scripts.js"></script>
 </head>
-<body>
+<body id="page_shipments_details">
     <div class="header">
         <div class="container">
             <div class="header-wrap">
@@ -44,15 +45,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="shipments-documents-container">
-                    <div class="shipments-document-wrap active">
-                        <div class="shipments-document-title">Invoice</div>
-                    </div>
-                    <div class="shipments-document-wrap">
-                        <div class="shipments-document-title">Packing</div>
-                    </div>
-                    <div class="shipments-document-wrap">
-                        <div class="shipments-document-title">Billl of Laden</div>
+                <div class="shipments-documents-container" id="documents_btn_list">
+                    <div id="documents_btn_list_wrap">
+                        <div class="shipments-document-wrap active">
+                            <div class="shipments-document-title">Invoice</div>
+                        </div>
+                        <div class="shipments-document-wrap">
+                            <div class="shipments-document-title">Packing</div>
+                        </div>
+                        <div class="shipments-document-wrap">
+                            <div class="shipments-document-title">Billl of Laden</div>
+                        </div>
                     </div>
                     <div class="shipments-document-wrap add">
                         <div class="shipments-document-wrap--add__line-v"></div>
@@ -68,7 +71,28 @@
             <div class="content-wrap">
                 <div class="content-main">
                     <div class="document-preview-container">
-    
+                        <div class="document-preview-toolbar">
+                            <div class="document-preview-toolbar__pages">
+                                <img class="document-preview-toolbar__pages-img" src="images/icon-page-blocks.png">
+                                <img class="document-preview-toolbar__pages-img" src="images/icon-page-view.png">
+                            </div>
+                            <div class="document-preview-toolbar__zoom">
+                                <img class="document-preview-toolbar__zoom-img" src="images/icon-zoom-out.png">
+                                <img class="document-preview-toolbar__zoom-img" src="images/icon-zoom-in.png">
+                            </div>
+                            <div class="document-preview-toolbar__draw">
+                                <img class="document-preview-toolbar__draw-img" src="images/icon-draw.png">
+                            </div>
+                            <div class="document-preview-toolbar__expend">
+                                <img class="document-preview-toolbar__expend-img" src="images/icon-expand.png">
+                            </div>
+                        </div>
+                        <div class="document-preview-workspace" id="document_preview_list">
+                            <!-- <img class="document-preview-img" src="images/page1.png"> -->
+                            <div class="" id="document_preview">
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="content-sidebar">
@@ -376,6 +400,24 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="view-templates" style="display: none">
+        <div id="document_btn">
+            <div class="shipments-document-wrap active1" doc-id="">
+                <div class="shipments-document-title">Invoice</div>
+            </div>
+        </div>
+        <div id="document_pattern_options">
+            <select class="document-pattern-options">
+                <option>EXPORTER</option>
+                <option>IMPORTER</option>
+                <option>INVOICE</option>
+                <option>INVOICE ITEMS</option>
+                <option>TRANSPORT</option>
+                <option>BOL</option>
+                <option>GOODS</option>
+            </select>
         </div>
     </div>
 </body>
