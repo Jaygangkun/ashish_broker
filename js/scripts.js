@@ -318,6 +318,10 @@
         var doc_draw_top = 0;
         var cur_doc_layer = null;
 
+        var pattern_fill = '#FFE20036';
+        var pattern_stroke = '#F4C816';
+        var pattern_stroke_width = 2;
+
         var isEdit = true;
         
         // events listener
@@ -372,7 +376,10 @@
             }
 
             if(!doc_layers.hasOwnProperty(doc_id)){
-                var doc_layer = new Konva.Layer();
+                var doc_layer = new Konva.Layer({
+                    // doc_id: doc_id,
+                    // doc_index: doc_index
+                });
                 stage.add(doc_layer);
                 doc_layers[doc_id] = doc_layer;
             }
@@ -396,7 +403,10 @@
                             width: img_width,
                             height: img_height,
                             page_index: pindex,
-                            name: 'page-image'
+                            name: 'page-image',
+                            doc_id: doc_id,
+                            doc_index: doc_index,
+                            page_index: pindex
                         });
 
                         cur_doc_layer.add(bk_img);
@@ -405,17 +415,12 @@
                         // draw template patterns
                         var template_patterns = resp_GET_ANNOTATIONS_TEMPLATE.templatePatterns;
                         for(var tindex = 0; tindex < template_patterns.length; tindex ++){
-                            var tpattern = template_patterns[tindex];
                             var pattern_x = template_patterns[tindex].minX
                             var pattern_y = doc_draw_top + template_patterns[tindex].minY;
                             var pattern_width = template_patterns[tindex].maxX - template_patterns[tindex].minX;
                             var pattern_height = template_patterns[tindex].maxY - template_patterns[tindex].minY;
 
-                            var pattern_fill = '#FFE20036';
-                            var pattern_stroke = '#F4C816';
-                            var pattern_stroke_width = 2;
-
-                            var pattern_options_id = 'document_pattern_options-' + doc_id + '-' + doc_index + '-' + pindex + '-' + tindex;
+                            var pattern_options_id = 'document_pattern_options-docid' + doc_id + '-docind' + doc_index + '-pind' + pindex + '-pind' + tindex;
 
                             var pattern_rect = new Konva.Rect({
                                 x: pattern_x,
@@ -432,7 +437,6 @@
                             });
                             cur_doc_layer.add(pattern_rect);           
                             
-                            var pattern_options_id = 'document_pattern_options-docid' + doc_id + '-docind' + doc_index + '-pind' + pindex + '-pind' + tindex;
                             if($('#' + pattern_options_id).length == 0){
                                 var pattern_options = $('#document_pattern_options').clone();
                             
@@ -443,8 +447,15 @@
                                 $('#' + pattern_options_id).attr('style', 'top: ' + pattern_options_top + 'px;' + 'left: ' + pattern_options_left + 'px');
                             }
 
-                            function movePatternOptions(prect){
-                                patter
+                            function movePatternOptions(prect){                                
+                                var pattern_options_id = prect.attrs.pattern_options_id;
+                                
+                                var pattern_options_top = prect.attrs.y;
+                                var pattern_options_left = prect.attrs.x + prect.attrs.scaleX * prect.attrs.width - $('#' + pattern_options_id).outerWidth();
+
+                                console.log('movePatternOptions:', pattern_options_id);
+
+                                $('#' + pattern_options_id).attr('style', 'top: ' + pattern_options_top + 'px;' + 'left: ' + pattern_options_left + 'px');
                             }
 
                             pattern_rect.on('transformstart', function () {
@@ -463,51 +474,6 @@
                             pattern_rect.on('transformend', function () {
                                 console.log('transform end');
                             });
-                            
-
-                            var pattern_text_label_width = 100;
-                            var pattern_text_label_height = 10;
-                            var pattern_text_padding = 10;
-                            var pattern_text_rect_x = template_patterns[tindex].maxX - pattern_text_label_width - pattern_text_padding * 2;
-                            var pattern_text_rect_y = doc_draw_top + template_patterns[tindex].minY;
-                            var pattern_rect_fill = '#000000';
-                            var pattern_text_rect = new Konva.Rect({
-                                x: pattern_text_rect_x,
-                                y: pattern_text_rect_y,
-                                width: pattern_text_label_width + pattern_text_padding * 2,
-                                height: pattern_text_label_height + pattern_text_padding * 2,
-                                fill: pattern_rect_fill,
-                                // opacity: 0.5,
-                                // stroke: pattern_stroke,
-                                // strokeWidth: pattern_stroke_width,
-                                draggable: false,
-                                name: 'template-pattern-label'
-                            });
-                            // cur_doc_layer.add(pattern_text_rect);
-
-                            var pattern_text_x = template_patterns[tindex].maxX - pattern_text_label_width;
-                            var pattern_text_y = doc_draw_top + template_patterns[tindex].minY + 10;
-                            var pattern_text = new Konva.Text({
-                                x: pattern_text_x,
-                                y: pattern_text_y,
-                                text: template_patterns[tindex].label,
-                                fontSize: 10,
-                                lineHeight: 1,
-                                fontWeight: 400,
-                                fontFamily: 'Poppins',
-                                fill: '#FFFFFF',
-                                draggable: false,
-                            })
-
-                            var pattern_group_name = 'template-pattern-group-' + doc_id + '-' + doc_index + '-' + pindex + '-' + tindex;
-                            pattern_group_name = 'template-pattern-group';
-                            var pattern = new Konva.Group({
-                                draggable: true,
-                                name: pattern_group_name,
-                            });
-                            // pattern.add(pattern_rect, pattern_text_rect, pattern_text);
-                            // cur_doc_layer.add(pattern_text);
-                            // cur_doc_layer.add(pattern);
 
                             var tr = new Konva.Transformer({
                                 rotateEnabled: false,
@@ -515,21 +481,20 @@
                             cur_doc_layer.add(tr);
                             // cur_doc_layer.draw();
 
-                            var selectionRectangle = new Konva.Rect({
+                            var pattern_rect_new = new Konva.Rect({
                                 fill: pattern_fill,
                                 // opacity: 0.5,
                                 stroke: pattern_stroke,
                                 strokeWidth: pattern_stroke_width,
                             });
-                            cur_doc_layer.add(selectionRectangle);
+                            cur_doc_layer.add(pattern_rect_new);
                         
                             var x1, y1, x2, y2;
-                            stage.on('mousedown touchstart', (e) => {
+                            cur_doc_layer.on('mousedown touchstart', (e) => {
                                 if(!isEdit){
                                     return;
                                 }
                                 // do nothing if we mousedown on eny shape
-                                console.log(e.target);
                                 if (e.target !== bk_img) {
                                     return;
                                 }
@@ -538,24 +503,24 @@
                                 x2 = stage.getPointerPosition().x;
                                 y2 = stage.getPointerPosition().y;
                         
-                                selectionRectangle.visible(true);
-                                selectionRectangle.width(0);
-                                selectionRectangle.height(0);
+                                pattern_rect_new.visible(true);
+                                pattern_rect_new.width(0);
+                                pattern_rect_new.height(0);
                                 cur_doc_layer.draw();
                             });
                             
-                            stage.on('mousemove touchmove', () => {
+                            cur_doc_layer.on('mousemove touchmove', () => {
                                 if(!isEdit){
                                     return;
                                 }
                                 // no nothing if we didn't start selection
-                                if (!selectionRectangle.visible()) {
+                                if (!pattern_rect_new.visible()) {
                                     return;
                                 }
                                 x2 = stage.getPointerPosition().x;
                                 y2 = stage.getPointerPosition().y;
                         
-                                selectionRectangle.setAttrs({
+                                pattern_rect_new.setAttrs({
                                     x: Math.min(x1, x2),
                                     y: Math.min(y1, y2),
                                     width: Math.abs(x2 - x1),
@@ -564,30 +529,31 @@
                                 cur_doc_layer.batchDraw();
                             });
                     
-                            stage.on('mouseup touchend', () => {
+                            cur_doc_layer.on('mouseup touchend', (e) => {
                                 if(!isEdit){
                                     return;
                                 }
                                 // no nothing if we didn't start selection
-                                if (!selectionRectangle.visible()) {
+                                if (!pattern_rect_new.visible()) {
                                     return;
                                 }
+
+                                console.log(e);
                                 // update visibility in timeout, so we can check it in click event
                                 setTimeout(() => {                                    
 
-                                    var new_pattern = selectionRectangle.clone();
+                                    var new_pattern = pattern_rect_new.clone();
                                     cur_doc_layer.add(new_pattern);
 
-                                    selectionRectangle.visible(false);
+                                    pattern_rect_new.visible(false);
                                     cur_doc_layer.batchDraw();
                                 });
                         
                                 var shapes = stage.find('.rect').toArray();
-                                var box = selectionRectangle.getClientRect();
+                                var box = pattern_rect_new.getClientRect();
                                 var selected = shapes.filter((shape) =>
                                     Konva.Util.haveIntersection(box, shape.getClientRect())
                                 );
-                                console.log('selected:', selected);
                                 tr.nodes(selected);
                                 cur_doc_layer.batchDraw();
                             });
@@ -598,7 +564,7 @@
                                     return;
                                 }
                                 // if we are selecting with rect, do nothing
-                                // if (selectionRectangle.visible()) {
+                                // if (pattern_rect_new.visible()) {
                                 //     return;
                                 // }
                         
