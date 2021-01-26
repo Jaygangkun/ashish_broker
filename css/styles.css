@@ -555,3 +555,9 @@ body{
     outline: none;
     font-weight: 400;
 }
+
+.document-detail-info__title input{
+    border: 0;;
+    outline: none;
+    background: transparent;
+}

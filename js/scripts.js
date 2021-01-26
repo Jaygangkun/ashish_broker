@@ -327,10 +327,13 @@
         var draw_x2 = null;
         var draw_y2 = null;
 
+        var drawing_pattern = false;
         var draw_doc_id = null;
         var draw_doc_index = null;
         var draw_page_index = null;
         var draw_page_id = null;
+
+        var draw_clicking = false;
 
         var doc_page_images = {
             // 'doc_id': {
@@ -470,11 +473,11 @@
             }
 
             if(cur_doc_tr == null){
-                cur_doc_tr = new Konva.Transformer({
-                    rotateEnabled: false,
-                });
+                // cur_doc_tr = new Konva.Transformer({
+                //     rotateEnabled: false,
+                // });
 
-                cur_doc_layer.add(cur_doc_tr);
+                // cur_doc_layer.add(cur_doc_tr);
             }
 
             if(cur_pattern_rect_draw == null){                
@@ -515,6 +518,9 @@
                 cur_pattern_rect_draw.width(0);
                 cur_pattern_rect_draw.height(0);
                 cur_doc_layer.draw();
+
+                drawing_pattern = false;
+                draw_clicking = true;
             });
             
             cur_doc_layer.on('mousemove touchmove', () => {
@@ -525,6 +531,11 @@
                 if (!cur_pattern_rect_draw.visible()) {
                     return;
                 }
+
+                if(!draw_clicking){
+                    return;
+                }
+
                 draw_x2 = stage.getPointerPosition().x;
                 draw_y1 = stage.getPointerPosition().y;
 
@@ -541,10 +552,13 @@
                 }); 
 
                 cur_doc_layer.batchDraw();
+
+                drawing_pattern = true;
                 
             });
     
             cur_doc_layer.on('mouseup touchend', (e) => {
+                draw_clicking = false;
                 if(!isEdit){
                     return;
                 }
@@ -555,49 +569,55 @@
 
                 console.log(e);
                 // update visibility in timeout, so we can check it in click event
-                setTimeout(() => {              
-                    var tindex = resp_GET_ANNOTATIONS_TEMPLATE['templatePatterns'].length;
-
-                    resp_GET_ANNOTATIONS_TEMPLATE['templatePatterns'].push({
-                        "rectangleId": tindex,
-                        label: "new created",
-                        "minX": cur_pattern_rect_draw_clone.x(),
-                        "minY": cur_pattern_rect_draw_clone.y(),
-                        "maxX": cur_pattern_rect_draw_clone.x() + cur_pattern_rect_draw_clone.width(),
-                        "maxY": cur_pattern_rect_draw_clone.y() + cur_pattern_rect_draw_clone.height()
-                    })
-
-                    var pattern_options_id = 'document_pattern_options-docid' + draw_doc_id + '-docind' + draw_doc_index + '-pind' + draw_page_index + '-pind' + tindex;
-                    cur_pattern_rect_draw_clone.setAttrs({
-                        name: 'template-pattern-rect',
-                        pattern_options_id: pattern_options_id
-                    })
-
-                    addPatternRectListener(draw_doc_id, draw_page_id, cur_pattern_rect_draw_clone);
-
-                    if($('#' + pattern_options_id).length == 0){
-                        var pattern_options = $('#document_pattern_options').clone();
+                setTimeout(() => {        
                     
-                        $(pattern_options).find('select').attr('id', pattern_options_id);
-                        $('#document_preview_list').append($(pattern_options).html());
-                        var pattern_options_top = cur_pattern_rect_draw_clone.y();
-                        var pattern_options_left = cur_pattern_rect_draw_clone.x() + cur_pattern_rect_draw_clone.width() - $('#' + pattern_options_id).outerWidth();
-                        $('#' + pattern_options_id).attr('style', 'top: ' + pattern_options_top + 'px;' + 'left: ' + pattern_options_left + 'px');
-                    }     
-                    
-                    cur_pattern_rect_draw_clone = null;
+                    if(drawing_pattern && cur_pattern_rect_draw_clone.width() > 50 && cur_pattern_rect_draw_clone.height() > 50){
+                        var tindex = resp_GET_ANNOTATIONS_TEMPLATE['templatePatterns'].length;
 
-                    cur_pattern_rect_draw.visible(false);
-                    cur_doc_layer.batchDraw();
+                        resp_GET_ANNOTATIONS_TEMPLATE['templatePatterns'].push({
+                            "rectangleId": tindex,
+                            label: "new created",
+                            "minX": cur_pattern_rect_draw_clone.x(),
+                            "minY": cur_pattern_rect_draw_clone.y(),
+                            "maxX": cur_pattern_rect_draw_clone.x() + cur_pattern_rect_draw_clone.width(),
+                            "maxY": cur_pattern_rect_draw_clone.y() + cur_pattern_rect_draw_clone.height()
+                        })
+    
+                        var pattern_options_id = 'document_pattern_options-docid' + draw_doc_id + '-docind' + draw_doc_index + '-pind' + draw_page_index + '-pind' + tindex;
+                        cur_pattern_rect_draw_clone.setAttrs({
+                            name: 'template-pattern-rect',
+                            pattern_options_id: pattern_options_id
+                        })
+    
+                        addPatternRectListener(draw_doc_id, draw_page_id, cur_pattern_rect_draw_clone);
+    
+                        if($('#' + pattern_options_id).length == 0){
+                            var pattern_options = $('#document_pattern_options').clone();
+                        
+                            $(pattern_options).find('select').attr('id', pattern_options_id);
+                            $('#document_preview_list').append($(pattern_options).html());
+                            var pattern_options_top = cur_pattern_rect_draw_clone.y();
+                            var pattern_options_left = cur_pattern_rect_draw_clone.x() + cur_pattern_rect_draw_clone.width() - $('#' + pattern_options_id).outerWidth();
+                            $('#' + pattern_options_id).attr('style', 'top: ' + pattern_options_top + 'px;' + 'left: ' + pattern_options_left + 'px');
+                        }     
+                        
+                        cur_pattern_rect_draw_clone = null;
+    
+                        cur_pattern_rect_draw.visible(false);
+                        cur_doc_layer.batchDraw();
+
+                        drawing_pattern = false;
+                    }
+                    
                 });
         
-                var shapes = stage.find('.rect').toArray();
-                var box = cur_pattern_rect_draw.getClientRect();
-                var selected = shapes.filter((shape) =>
-                    Konva.Util.haveIntersection(box, shape.getClientRect())
-                );
-                cur_doc_tr.nodes(selected);
-                cur_doc_layer.batchDraw();
+                // var shapes = stage.find('.rect').toArray();
+                // var box = cur_pattern_rect_draw.getClientRect();
+                // var selected = shapes.filter((shape) =>
+                //     Konva.Util.haveIntersection(box, shape.getClientRect())
+                // );
+                // cur_doc_tr.nodes(selected);
+                // cur_doc_layer.batchDraw();
             });
         
             // clicks should select/deselect shapes
@@ -612,49 +632,41 @@
         
                 // if click on empty area - remove all selections
                 if (e.target.hasName('page-image')) {
-                    cur_doc_tr.nodes([]);
+                    if(cur_doc_tr){
+                        cur_doc_tr.nodes([]);
+                    }
+                    
                     cur_doc_layer.draw();
                     return;
                 }
         
-                // do nothing if clicked NOT on our rectangles
-                if (!e.target.hasName('rect')) {
-                    return;
-                }
+                // // do nothing if clicked NOT on our rectangles
+                // if (!e.target.hasName('template-pattern-rect')) {
+                //     return;
+                // }
         
-                // do we pressed shift or ctrl?
-                const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
-                const isSelected = tr.nodes().indexOf(e.target) >= 0;
+                
+                // // do we pressed shift or ctrl?
+                // const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
+                // const isSelected = cur_doc_tr.nodes().indexOf(e.target) >= 0;
         
-                if (!metaPressed && !isSelected) {
-                    // if no key pressed and the node is not selected
-                    // select just one
-                    cur_doc_tr.nodes([e.target]);
-                } else if (metaPressed && isSelected) {
-                    // if we pressed keys and node was selected
-                    // we need to remove it from selection:
-                    const nodes = cur_doc_tr.nodes().slice(); // use slice to have new copy of array
-                    // remove node from array
-                    nodes.splice(nodes.indexOf(e.target), 1);
-                    cur_doc_tr.nodes(nodes);
-                } else if (metaPressed && !isSelected) {
-                    // add the node into selection
-                    const nodes = tr.nodes().concat([e.target]);
-                    cur_doc_tr.nodes(nodes);
-                }
-                cur_doc_layer.draw();
-            });
-
-            stage.on('click tap', function (e) {
-                if(!isEdit){
-                    return;
-                }
-
-                if (e.target.hasName('page-image')) {
-                    cur_doc_tr.nodes([]);
-                    cur_doc_layer.draw();
-                    return;
-                }
+                // if (!metaPressed && !isSelected) {
+                //     // if no key pressed and the node is not selected
+                //     // select just one
+                //     cur_doc_tr.nodes([e.target]);
+                // } else if (metaPressed && isSelected) {
+                //     // if we pressed keys and node was selected
+                //     // we need to remove it from selection:
+                //     const nodes = cur_doc_tr.nodes().slice(); // use slice to have new copy of array
+                //     // remove node from array
+                //     nodes.splice(nodes.indexOf(e.target), 1);
+                //     cur_doc_tr.nodes(nodes);
+                // } else if (metaPressed && !isSelected) {
+                //     // add the node into selection
+                //     const nodes = cur_doc_tr.nodes().concat([e.target]);
+                //     cur_doc_tr.nodes(nodes);
+                // }
+                // cur_doc_layer.draw();
             });
         }
         function getAnnotationTemplates(doc_index, clear){
@@ -743,8 +755,15 @@
                 // tr.nodes(this.getChildren());
                 // doc_trs[doc_id].nodes([this]);
                 // doc_layers[doc_id].draw();
-                cur_doc_tr.nodes([this]);
-                cur_doc_layer.draw();
+                if(cur_doc_tr == null){
+                    cur_doc_tr = new Konva.Transformer({
+                        rotateEnabled: false,
+                    });
+    
+                    cur_doc_layer.add(cur_doc_tr);
+                }
+                cur_doc_tr.nodes([e.target]);
+                cur_doc_layer.batchDraw();
             });
 
         }
